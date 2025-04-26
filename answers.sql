@@ -15,7 +15,7 @@ SELECT * FROM ProductSplit;
 
 
 -- Question 2: 
--- 1️⃣ Create the normalized Orders table: 
+-- 1: The normalized Orders table: 
 CREATE TABLE Orders (
     OrderID INT PRIMARY KEY,
     CustomerName VARCHAR(100)
@@ -26,6 +26,17 @@ SELECT DISTINCT OrderID, CustomerName
 FROM OrderDetails;
 
 
--- 2️⃣ Create the normalized OrderItems table:
+-- 2: The normalized OrderItems table:
+CREATE TABLE OrderItems (
+    OrderID INT,
+    Product VARCHAR(100),
+    Quantity INT,
+    PRIMARY KEY (OrderID, Product),
+    FOREIGN KEY (OrderID) REFERENCES Orders(OrderID)
+);
+
+INSERT INTO OrderItems (OrderID, Product, Quantity)
+SELECT OrderID, Product, Quantity
+FROM OrderDetails;
 
 
